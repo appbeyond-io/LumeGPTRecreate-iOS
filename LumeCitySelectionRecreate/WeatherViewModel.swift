@@ -21,7 +21,7 @@ class WeatherViewModel {
   let cities: [City]
   var items: [WeatherItem] = []
   var selectedCity: City
-  var selectedUnit: UnitTemperature = .celsius
+  var selectedUnit: UnitTemperature = .fahrenheit
   
   @MainActor
   func onAppear() async {

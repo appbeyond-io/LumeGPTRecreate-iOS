@@ -107,9 +107,9 @@ struct WeatherBarListView: View {
   }
   
   private func animate(at index: Int) async {
-    try? await Task.sleep(for: .seconds(Double(index) * 0.02))
+    try? await Task.sleep(for: .seconds(0.5 + Double(index) * 0.02))
     withAnimation(.spring(.bouncy(duration: 0.4, extraBounce: 0.2))) {
-      values[index] = Int(items[index].temperature.value)
+      values[index] = Int(items[index].temperature.converted(to: selectedUnit).value)
     }
   }
 }
