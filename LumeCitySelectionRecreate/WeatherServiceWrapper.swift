@@ -21,7 +21,7 @@ class WeatherServiceWrapper: HourlyWeatherService {
       return WeatherItem(
         id: UUID(),
         cityName: city.name,
-        date: Date(),
+        date: weather.date,
         symbolName: weather.symbolName,
         description: weather.condition.description,
         temperature: weather.temperature,

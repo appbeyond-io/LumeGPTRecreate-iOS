@@ -13,6 +13,7 @@ struct WeatherBarListView: View {
     self.items = items
     self.values = Array(repeating: 0, count: items.count)
     self.colors = items.map { $0.temperatureColor }
+    self.symbolNames = items.map { $0.symbolName }
     self._selectedUnit = selectedUnit
   }
   
@@ -21,30 +22,45 @@ struct WeatherBarListView: View {
   private let items: [WeatherItem]
   @State private var values: [Int]
   @State private var colors: [Color]
+  @State private var symbolNames: [String]
 
   var body: some View {
     ScrollView {
       VStack(alignment: .leading, spacing: .zero) {
         ForEach(Array(values.enumerated()), id: \.offset) { index, value in
-          Rectangle()
-            .containerRelativeFrame(.vertical, count: 24, span: 1, spacing: 0)
-            .containerRelativeFrame(
-              .horizontal,
-              count: 60,
-              span: value,
-              spacing: 0
-            )
-            .foregroundStyle(colors[index].gradient)
-            .task {
-              await animate(at: index)
-            }
+          HStack {
+            Rectangle()
+              .containerRelativeFrame(.vertical, count: 24, span: 1, spacing: 0)
+              .containerRelativeFrame(
+                .horizontal,
+                count: 120,
+                span: value,
+                spacing: 0
+              )
+              .foregroundStyle(colors[index])
+              .overlay {
+                LinearGradient(
+                  colors: [.black.opacity(0.05), .clear],
+                  startPoint: .top,
+                  endPoint: .bottom
+                )
+              }
+              .brightness(-Double(index - 23) * 0.01)
+
+            Image(systemName: symbolNames[index])
+              .symbolEffect(.bounce, value: symbolNames[index])
+              .foregroundStyle(colors[index].gradient)
+          }
+          .task {
+            await animate(at: index)
+          }
         }
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
       .background(.black, ignoresSafeAreaEdges: .all)
       .overlay {
         LinearGradient(
-          colors: [.black.opacity(0.5), .black.opacity(0.5), .clear],
+          colors: [.black.opacity(0.7), .clear],
           startPoint: .top,
           endPoint: .bottom
         )
@@ -53,6 +69,11 @@ struct WeatherBarListView: View {
     .scrollDisabled(true)
     .ignoresSafeArea(.all)
     .onChange(of: items) {
+      Task { @MainActor in
+        await wave()
+      }
+    }
+    .onChange(of: selectedUnit) {
       Task { @MainActor in
         await wave()
       }
@@ -68,13 +89,15 @@ struct WeatherBarListView: View {
       try? await Task.sleep(for: .seconds(abs(Double(r - m)) * 0.005))
       withAnimation(.spring(.bouncy(duration: 0.4, extraBounce: 0.2))) {
         if l >= 0 {
-          values[l] = Int(items[l].temperature.value)
+          values[l] = Int(items[l].temperature.converted(to: selectedUnit).value)
           colors[l] = items[l].temperatureColor
+          symbolNames[l] = items[l].symbolName
         }
         
         if r <= items.count - 1 {
-          values[r] = Int(items[r].temperature.value)
+          values[r] = Int(items[r].temperature.converted(to: selectedUnit).value)
           colors[r] = items[r].temperatureColor
+          symbolNames[r] = items[r].symbolName
         }
       }
       

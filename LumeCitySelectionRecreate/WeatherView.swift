@@ -35,6 +35,6 @@ struct WeatherView: View {
 }
 
 #Preview {
-  @Previewable @State var viewModel = WeatherViewModel(service: WeatherServiceWrapper())
+  @Previewable @State var viewModel = WeatherViewModel(service: WeatherServiceWrapper(), cities: City.all)
   WeatherView(viewModel: viewModel)
 }

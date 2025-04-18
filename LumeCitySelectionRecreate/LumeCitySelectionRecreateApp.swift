@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct LumeCitySelectionRecreateApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  
+  @State var viewModel = WeatherViewModel(service: WeatherServiceWrapper(), cities: City.all)
+  
+  var body: some Scene {
+    WindowGroup {
+      WeatherView(viewModel: viewModel)
     }
+  }
 }
