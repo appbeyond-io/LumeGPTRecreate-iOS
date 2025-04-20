@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		19BC8C1D2DB4254F0091E02C /* CitySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BC8C1C2DB4254F0091E02C /* CitySelectionView.swift */; };
+		19BC8C292DB4F3F30091E02C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BC8C282DB4F3F30091E02C /* ColorExtension.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		1938ECF92DAFAFF9005C92F8 /* LumeCitySelectionRecreate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LumeCitySelectionRecreate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19BC8C1C2DB4254F0091E02C /* CitySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectionView.swift; sourceTree = "<group>"; };
+		19BC8C282DB4F3F30091E02C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +39,8 @@
 		1938ECF02DAFAFF9005C92F8 = {
 			isa = PBXGroup;
 			children = (
+				19BC8C282DB4F3F30091E02C /* ColorExtension.swift */,
+				19BC8C1C2DB4254F0091E02C /* CitySelectionView.swift */,
 				1938ECFB2DAFAFF9005C92F8 /* LumeCitySelectionRecreate */,
 				1938ECFA2DAFAFF9005C92F8 /* Products */,
 			);
@@ -119,6 +128,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19BC8C1D2DB4254F0091E02C /* CitySelectionView.swift in Sources */,
+				19BC8C292DB4F3F30091E02C /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
